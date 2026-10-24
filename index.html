@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number!</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; padding: 50px; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        input { padding: 10px; font-size: 16px; width: 80px; text-align: center; }
+        button { padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        #reward { margin-top: 20px; font-size: 80px; display: none; }
+        #message { font-size: 18px; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Guess the Secret Number (1-10)</h2>
+    <p>Guess right to claim your special reward!</p>
+    <input type="number" id="userGuess" min="1" max="10">
+    <button onclick="checkGuess()">Submit Guess</button>
+    <div id="message"></div>
+    <div id="reward">🖕</div>
+</div>
+<script>
+    const secretNumber = Math.floor(Math.random() * 10) + 1;
+    function checkGuess() {
+        const guess = parseInt(document.getElementById('userGuess').value);
+        const messageDiv = document.getElementById('message');
+        const rewardDiv = document.getElementById('reward');
+        if (isNaN(guess) || guess < 1 || guess > 10) {
+            messageDiv.textContent = "Please enter a valid number.";
+            return;
+        }
+        if (guess === secretNumber) {
+            messageDiv.textContent = "🎉 Congratulations! Here is your reward:";
+            messageDiv.style.color = "green";
+            rewardDiv.style.display = "block";
+        } else {
+            messageDiv.textContent = guess > secretNumber ? "Too high!" : "Too low!";
+            messageDiv.style.color = "red";
+            rewardDiv.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
